@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs v-model="activeName" @tab-click="handleClick" class="nav">
     <el-tab-pane label="维修" name="first">
       <v-maintainManage></v-maintainManage>
     </el-tab-pane>

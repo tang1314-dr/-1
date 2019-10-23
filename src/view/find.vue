@@ -83,7 +83,7 @@ export default {
   methods: {
     alter() {
         // console.log(this.id);
-        
+      this.user.time = this.time.getTime(); 
       this.isFind.isFind = false;
       this.$axios({
         url: API.updateManage,

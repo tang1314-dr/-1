@@ -9,9 +9,13 @@
     <div class="input">
       <el-table :data="d" border style="width: 100%" max-height="400">
         <el-table-column type="index" label="序号"></el-table-column>
-        <el-table-column prop="username" label="用户名"></el-table-column>
+        <el-table-column prop="name" label="用户名"></el-table-column>
         <el-table-column prop="content" label="评论内容"></el-table-column>
-        <el-table-column prop="time" label="时间"></el-table-column>
+        <el-table-column label="时间">
+           <template slot-scope="scope">
+              <span>{{scope.row.time|getTime}}</span>
+            </template>
+        </el-table-column>
         <el-table-column prop="operate" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
@@ -32,7 +36,7 @@ export default {
       dialogFormVisible: false,
       formLabelWidth: "120px",
       data: {
-        username: "",
+        name: "",
         repairId: "",
         content: "",
         time: ""
@@ -92,17 +96,13 @@ export default {
             message: "已取消删除"
           });
         });
+        this.init()
     },
   },
   mounted() {
     this.repairInit()
     this.init();
   },
-  watch: {
-    d() {
-      this.init();
-    }
-  }
 };
 </script>
 <style lang='stylus' scoped>

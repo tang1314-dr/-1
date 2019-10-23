@@ -16,7 +16,9 @@
           <el-table-column prop="price" label="价格"></el-table-column>
           <el-table-column prop="age" label="年龄"></el-table-column>
           <el-table-column prop="edu" label="学历"></el-table-column>
-          <el-table-column prop="type" label="服务类型"></el-table-column>
+          <el-table-column label="服务类型">
+            <template slot-scope="scope">{{scope.row.type|jsonparse}}</template>
+          </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="alter(scope.row.id)">查看</el-button>
@@ -99,16 +101,7 @@
             <el-input v-model="form.info"></el-input>
           </el-form-item>
           <el-form-item label="免冠照片" :label-width="formLabelWidth">
-            <el-upload
-              class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="form.img" :src="form.img" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            <v-uploadImg @getUrl="getUrl"></v-uploadImg>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -170,8 +163,9 @@ export default {
       });
     },
     add(id) {
-      this.form.qualification = this.form.qualification.join(",");
-      this.form.type = this.form.type.join(",");
+      // if (/^\[/.text(this.form.qualification)) {
+      //   this.form.qualification = JSON.parse(this.form.qualification)
+      // }
       if (id) {
         this.$axios({
           url: API.updateHomeWorker,
@@ -188,7 +182,7 @@ export default {
         });
       }
       this.dialogFormVisible = false;
-      this.init()
+      this.init();
     },
     homeTypeInit() {
       this.$axios({
@@ -234,26 +228,9 @@ export default {
           });
         });
     },
-    handleAvatarSuccess(res, file) {
-      this.$axios({
-        url: API.getToken
-      }).then(rst => {
-        console.log(rst);
-      });
-      this.form.img = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    }
+   getUrl(a){
+     this.form.img=a
+   }
   },
   mounted() {
     this.homeTypeInit();

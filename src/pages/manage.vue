@@ -14,7 +14,6 @@
         <el-table-column prop="operate" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="updata(scope.row.id)">查看</el-button>
-            <!-- <el-button size="mini" type="danger" @click="del(scope.row)">删除</el-button> -->
             <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -39,16 +38,6 @@ export default {
       isAdd: { isAdd: false },
       isFind: { isFind: false },
       dialogFormVisible: false,
-      // form: {
-      //   name: "",
-      //   region: "",
-      //   date1: "",
-      //   date2: "",
-      //   delivery: false,
-      //   type: [],
-      //   resource: "",
-      //   desc: ""
-      // },
       id: ""
     };
   },

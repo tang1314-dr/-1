@@ -6,6 +6,7 @@ import router from './router'
 import axios from 'axios'
 import store from './store'
 
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
@@ -19,13 +20,13 @@ for (let i in components) {
 }
 
 import filters from './filters'
-for(let i in filters){
-  Vue.filter(i,filters[i])
+for (let i in filters) {
+  Vue.filter(i, filters[i])
 }
 
 
-axios.interceptors.response.use(config=>{
-  if(config.data.code==-1){
+axios.interceptors.response.use(config => {
+  if (config.data.code == -1) {
     router.replace('/login')
   }
   return config
@@ -33,6 +34,22 @@ axios.interceptors.response.use(config=>{
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  const isAdmin = store.state.admin
+  if (to.path == '/login') {
+    next()
+    return
+  }
+  if (to.path.includes('/manage')) {
+    if (isAdmin.type == 0) {
+      next()
+      return
+    } else {
+      next('/login')
+    }
+  }
+  next()
+})
 
 /* eslint-disable no-new */
 new Vue({
@@ -41,5 +58,5 @@ new Vue({
   store,
   components: { App },
   template: '<App/>',
-  
+
 })

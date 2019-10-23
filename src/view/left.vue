@@ -1,12 +1,12 @@
 <template>
 <div class="left">
-    <router-link to="/index/manage" active-class="select" v-if="admin==0">管理员管理</router-link>
-    <router-link to="/index/banner" active-class="select">banner管理</router-link>
-    <router-link to="/index/family" active-class="select">家教管理</router-link>
-    <router-link to="/index/water" active-class="select">水站管理</router-link>   
-    <router-link to="/index/maintain" active-class="select">维修管理</router-link>
-    <router-link to="/index/homemaking" active-class="select">家政管理</router-link>
-    <router-link to="/index/changePass" active-class="select">修改密码</router-link>
+    <router-link to="/index/manage" active-class="select" v-if="admin.type==0">管理员管理</router-link>
+    <router-link to="/index/banner" active-class="select" v-if="admin.type==1">banner管理</router-link>
+    <router-link to="/index/family" active-class="select" v-if="admin.type==1">家教管理</router-link>
+    <router-link to="/index/water" active-class="select" v-if="admin.type==1">水站管理</router-link>   
+    <router-link to="/index/maintain" active-class="select" v-if="admin.type==1">维修管理</router-link>
+    <router-link to="/index/homemaking" active-class="select" v-if="admin.type==1">家政管理</router-link>
+    <router-link to="/index/changePassManage" active-class="select" v-if="admin.type==1">修改密码</router-link>
 </div>
 </template>
 <script>

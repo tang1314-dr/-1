@@ -1,9 +1,8 @@
-import Vue from 'vue'
 
-const getTime = Vue.filter('getTime', function (value) {
-    return new Date(Number(value)).toLocaleDateString() 
-})
+import getTime from './getTime'
+import jsonparse from './jsonparse'
 
 export default {
-    getTime
+    getTime,
+    jsonparse
 }

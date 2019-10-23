@@ -11,7 +11,7 @@ const banner=()=>import('../pages/banner.vue')
 const family=()=>import('../pages/family.vue')
 const homemaking=()=>import('../pages/homemaking.vue')
 const water=()=>import('../pages/water.vue')
-const changePass=()=>import('../pages/changePass.vue')
+const changePassManage=()=>import('../pages/changePassManage.vue')
 const maintain=()=>import('../pages/maintain.vue')
 
 export default new Router({
@@ -56,9 +56,9 @@ export default new Router({
           component: water
         },
         {
-          path:'changePass',
+          path:'changePassManage',
           name:'修改密码',
-          component: changePass
+          component: changePassManage
         },
         {
           path:'maintain',

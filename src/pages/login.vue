@@ -58,7 +58,8 @@ export default {
         data: this.user
       }).then(rst => {
         if (rst.data.isok) {
-          this.$store.dispatch('changeAdmin',rst.data.type)
+          this.$store.dispatch('changeAdmin',rst.data)
+          this.$store.dispatch('changeManage',this.user)
           this.$router.push("/index");
           this.$message(rst.data.info);          
         } else {

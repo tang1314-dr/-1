@@ -21,17 +21,8 @@
     </div>
     <el-dialog title="添加家教banner" :visible.sync="dialogFormVisible">
       <el-form :model="img">
-        <el-form-item label="图片" :label-width="formLabelWidth">
-          <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="img.img" :src="img.img" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+        <el-form-item label="图片" :label-width="formLabelWidth" >
+        <v-uploadImg @getUrl="getUrl"></v-uploadImg>         
         </el-form-item>
         <el-form-item label="描述" :label-width="formLabelWidth">
           <el-input v-model="img.des" autocomplete="off"></el-input>
@@ -45,6 +36,7 @@
   </div>
 </template>
 <script>
+const uuidV1 = require("uuid/v1");
 import API from "../comment/js/API";
 import vAdd from "../view/add";
 import vDel from "../view/del";
@@ -57,7 +49,7 @@ export default {
       img: {
         img: "",
         des: ""
-      }
+      },
     };
   },
   methods: {
@@ -95,27 +87,8 @@ export default {
           });
         });
     },
-    handleAvatarSuccess(res, file) {
-       this.$axios({
-        url: API.getToken
-      }).then(rst => {
-        console.log(rst);
-      });
-      this.img.img = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
     add() {
+      
       this.dialogFormVisible = false;
       this.$axios({
         url: API.addTeacherBanner,
@@ -123,6 +96,9 @@ export default {
       }).then(res => {
         console.log(res);
       });
+    },
+    getUrl(a){
+      this.img.img=a
     }
   },
   mounted() {

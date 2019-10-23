@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs v-model="activeName" @tab-click="handleClick" class="nav">
     <el-tab-pane label="家教banner" name="first">
       <v-familyBanner></v-familyBanner>
     </el-tab-pane>

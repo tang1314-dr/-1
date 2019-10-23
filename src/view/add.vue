@@ -23,9 +23,9 @@
             placeholder="选择日期"
             :picker-options="pickerOptions"
           >
-            <template slot-scope="scope">
+            <!-- <template slot-scope="scope">
               <span>{{scope.row.data|getTime}}</span>
-            </template>
+            </template> -->
           </el-date-picker>
         </el-form-item>
       </el-form>

@@ -3,7 +3,7 @@
     <button class="el-button exit el-button--default" @click="out">
       <span>退出登录</span>
     </button>
-    <h3>admin</h3>
+    <h3>{{$store.state.manage.name}}</h3>
   </div>
 </template>
 <script>
@@ -14,7 +14,8 @@ export default {
       this.$axios({
         url: API.exit
       }).then(res => {
-        this.$store.state.admin = "";
+        this.$store.state.admin = {};
+        this.$store.state.manage = {};
         this.$router.push("/login");
       });
     }

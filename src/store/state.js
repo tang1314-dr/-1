@@ -1,5 +1,6 @@
 var state={
-    admin:'',
+    admin:{},
+    manage:{}
 }
 
 export default state;

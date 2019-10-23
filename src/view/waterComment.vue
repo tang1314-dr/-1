@@ -1,7 +1,7 @@
 <template>
   <div class="text-center" >
     <el-select v-model="select" placeholder="请选择" style="width:80%" @change="change">
-      <el-option :label="select" value="" >    
+      <el-option label="全部" value="" >    
       </el-option>
       <el-option v-for="item in water" :key="item.id" :label="item.name" :value="item.id" >     
       </el-option>
@@ -9,7 +9,7 @@
     <div class="input">
       <el-table :data="d" border style="width: 100%" max-height="400">
         <el-table-column type="index" label="序号"></el-table-column>
-        <el-table-column prop="username" label="用户名"></el-table-column>
+        <el-table-column prop="name" label="用户名"></el-table-column>
         <el-table-column prop="content" label="评论内容"></el-table-column>
         <el-table-column prop="time" label="时间"></el-table-column>
         <el-table-column prop="operate" label="操作">
@@ -32,7 +32,7 @@ export default {
       dialogFormVisible: false,
       formLabelWidth: "120px",
       data: {
-        username: "",
+        name: "",
         waterId: "",
         content: "",
         time: ""
@@ -91,17 +91,14 @@ export default {
             message: "已取消删除"
           });
         });
+        this.init()
     },
   },
   mounted() {
     this.waterInit()
     this.init();
   },
-  watch: {
-    d() {
-      this.init();
-    }
-  }
+
 };
 </script>
 <style lang='stylus' scoped>

@@ -27,30 +27,11 @@
     <el-dialog title="添加家教排行" :visible.sync="dialogFormVisible">
       <el-form :model="img">
         <el-form-item label="图片" :label-width="formLabelWidth" >
-          <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess1"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="img.img" :src="img.img" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+         <v-uploadImg @getUrl="getUrl1"></v-uploadImg>
         </el-form-item>
         <el-form-item label="机构" :label-width="formLabelWidth" >
-          <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess2"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img v-if="img.teacherImg" :src="img.teacherImg" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          <v-uploadImg @getUrl="getUrl2"></v-uploadImg>
         </el-form-item>
-
         <el-form-item label="报名人数" :label-width="formLabelWidth">
           <el-input v-model="img.num" autocomplete="off"></el-input>
         </el-form-item>
@@ -124,33 +105,11 @@ export default {
           });
         });
     },
-    handleAvatarSuccess1(res, file) {
-      this.$axios({
-        url: API.getToken
-      }).then(rst => {
-        console.log(rst);
-      });
-      this.img.img = URL.createObjectURL(file.raw);
+    getUrl1(a){
+      this.img.img=a
     },
-    handleAvatarSuccess2(res, file) {
-      this.$axios({
-        url: API.getToken
-      }).then(rst => {
-        console.log(rst);
-      });
-      this.img.teacherImg = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
+    getUrl2(a){   
+      this.img.teacherImg=a
     }
   },
   mounted() {
